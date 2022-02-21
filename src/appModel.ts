@@ -299,6 +299,7 @@ export function gameReducer(state: GameState, action: Action): GameState {
     case ActionType.AppendLetter: {
       if (
         state.currentGuess.length < WordLength &&
+        action.letter.length === 1 &&
         action.letter >= "a" &&
         action.letter <= "z"
       ) {

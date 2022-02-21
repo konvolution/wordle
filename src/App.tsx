@@ -26,7 +26,7 @@ export default function App() {
     AppModel.selectTargetWord(gameState)
   );
 
-  const onPressKey = (key: string) => {
+  const onPressKey = React.useCallback((key: string) => {
     switch (key) {
       case "\r":
         dispatch(AppModel.createSubmitGuessAction());
@@ -38,7 +38,7 @@ export default function App() {
         dispatch(AppModel.createAppendLetterAction(key));
         break;
     }
-  };
+  }, []);
 
   const onClickNewGame = () =>
     dispatch(
@@ -46,6 +46,39 @@ export default function App() {
         ? AppModel.createNextGameAction()
         : AppModel.createResetGameAction()
     );
+
+  // Handle key press events at the document level
+  React.useEffect(() => {
+    const handleKeyDown = (ev: KeyboardEvent) => {
+      switch (ev.key) {
+        case "Enter":
+          onPressKey("\r");
+          break;
+        case "Backspace":
+          onPressKey("\b");
+          break;
+
+        case "Escape":
+          // Blur the focused element
+          const activeElement = document.activeElement;
+          if (activeElement !== null) {
+            const focusedElement = activeElement as { blur?: () => void };
+            focusedElement.blur?.();
+          }
+
+          break;
+        default:
+          onPressKey(ev.key.toLowerCase());
+          break;
+      }
+    };
+
+    document.body.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onPressKey]);
 
   return (
     <div className="App">
