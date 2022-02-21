@@ -1,0 +1,188 @@
+:root {
+  --color-button-active: #666;
+  --color-key-background: #ddd;
+  --color-match-position: green;
+  --color-match-present: #e80;
+  --color-match-absent: #787878;
+  --color-cell-border: #bbb;
+  --color-invalid-word: red;
+  --color-text: black;
+  --color-tile-hint: white;
+  --color-button-shadow: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.Keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Keyboard .row {
+  display: flex;
+}
+
+.Key {
+  font-size: 24px;
+  height: 60px;
+  width: 40px;
+  text-transform: capitalize;
+  border-radius: 4px;
+  margin: 3px;
+  padding: 12px 8px;
+  border-color: transparent;
+  background-color: var(--color-key-background);
+  transition: background-color 120ms ease-out;
+}
+
+.Key:active {
+  background-color: var(--color-button-active);
+  transition: unset;
+  animation-name: PressIn;
+  animation-duration: 200ms;
+  animation-fill-mode: forwards;
+}
+
+.Key.enter {
+  width: 64px;
+  font-size: 14px;
+}
+
+.Key.backspace {
+  width: 64px;
+}
+
+.App .match-position {
+  background-color: var(--color-match-position);
+  color: var(--color-tile-hint);
+}
+
+.App .present {
+  background-color: var(--color-match-present);
+  color: var(--color-tile-hint);
+}
+
+.App .absent {
+  background-color: var(--color-match-absent);
+  color: var(--color-tile-hint);
+}
+
+.App .WordGrid {
+  margin: 40px;
+}
+
+.WordGrid {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.WordGrid .row {
+  display: flex;
+  flex-direction: row;
+}
+
+.WordGrid .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  margin: 4px;
+  width: 60px;
+  height: 60px;
+  border: 2pt solid var(--color-cell-border);
+}
+
+.cell.match-position,
+.cell.present,
+.cell.absent {
+  border: none;
+}
+
+.cell.filled {
+  animation-name: PopIn;
+  animation-duration: 200ms;
+}
+
+.App .invalid {
+  color: var(--color-invalid-word);
+}
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.appbutton {
+  font-size: 16px;
+  text-transform: capitalize;
+  border-radius: 4px;
+  padding: 12px 8px;
+  box-shadow: 5px 5px 5px var(--color-button-shadow);
+  border-color: transparent;
+  background-color: var(--color-key-background);
+  transition: background-color 120ms ease-out;
+}
+
+.appbutton:active {
+  background-color: var(--color-button-active);
+  transition: unset;
+}
+
+.cell.wave {
+  animation-name: Wave;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+}
+
+.delay1N {
+  animation-delay: 50ms;
+}
+
+.delay2N {
+  animation-delay: 100ms;
+}
+
+.delay3N {
+  animation-delay: 150ms;
+}
+
+.delay4N {
+  animation-delay: 200ms;
+}
+
+@keyframes PopIn {
+  40% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes PressIn {
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes Wave {
+  50% {
+    transform: translateY(-40px);
+  }
+}
