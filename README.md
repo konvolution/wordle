@@ -1,2 +1,2 @@
-# wordle3
+# wordle
 Created with CodeSandbox
